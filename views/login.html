@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Login</title>
+    <style>
+        .input-field .prefix{
+            right:0;
+        }
+        #visibility{
+            cursor:pointer;
+        }
+        #form{
+            margin-top: 50px;
+        }
+        #alert{
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="row center">
+            <div class="col s12 m6 offset-m3">
+                <div class="card amber accent-2" id="alert">
+                    <div class="card-content white-text">
+                        {{ message }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        
+        <div class="container">
+            <form action="{{ url_for('index') }}" method="POST" id="form">
+                <div class="row center">
+                    <div class="input-field col s12">
+                        <input type="email" name="email" id="email">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+
+                <div class="row center">
+                    <div class="input-field col s12">
+                        <input type="password" name="senha" id="senha">
+                        <label for="senha">senha</label>
+                        <i class="material-icons prefix blue-text text-lighten-1" id="visibility">visibility</i>
+                    </div>
+                   
+                </div>
+
+                <div class="row center">
+                    <div class="input-field">
+                        <button class="btn waves-effect waves-light blue lighten-1" type="submit">Ok</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <i class="material-icons">eye</i>
+    <a href="{{ url_for('cadastro') }}">cadastre-se</a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- <script src="{{ url_for('static',filename='js/script.js') }}"></script> -->
+    <script>
+        const visibility = document.querySelector('#visibility');
+        const senha = document.querySelector('#senha');
+         visibility.onclick=function(){
+            if (senha.type === 'password') {
+                senha.type = 'text'
+                this.innerHTML = 'visibility_off'
+            }else {
+                senha.type = 'password'
+                this.innerHTML = 'visibility'
+            }
+         }
+    </script>
+</body>
+
+</html>

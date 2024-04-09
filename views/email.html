@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    h3{
+        color:red;
+    }
+    </style>
+    <title>Email</title>
+</head>
+<body>
+    <h3>Coleta Solicitada</h3>
+
+    <h4>Contato do solicitante</h4>
+    <ul>
+        <li> <b>Nome:</b> {{ usuario.nome }} </li>
+        <li> <b>Email:</b> {{ usuario.email }} </li>
+        <li> <b>telefone:</b> {{ usuario.telefone }} </li>
+    </ul>
+
+    <h4>Informaçoes da coleta</h4>
+    <ul>
+        <li> <b>Cidade:</b> {{ coleta.cidade }} </li>
+        <li> <b>Bairro:</b> {{ coleta.bairro }} </li>
+        <li> <b>Rua:</b> {{ coleta.rua }} </li>
+        <li> <b>Descrição:</b> {{ coleta.desc }} </li>
+    </ul>
+</body>
+</html>
