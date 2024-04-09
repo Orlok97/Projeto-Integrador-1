@@ -34,10 +34,7 @@ def cadastro():
 @app.route('/home',methods=['GET','POST'])
 def home():
     return HomeController().index()
-
-@app.route('/home/coleta/<int:id>',methods=['GET','POST'])
-def coleta(id):
-    return ColetaController().index(id)   
+  
 @app.route('/logout')   
 def logout():
     return HomeController().logout()

@@ -1,10 +1,6 @@
 from flask import render_template, request, url_for
 from flask import redirect , session, flash
-
-
 from models import *
-
-
 
 class LoginController:
     def index(self):
@@ -87,9 +83,5 @@ class HomeController:
         session.pop('email',None)
         return redirect(url_for('index'))
         
-class ColetaController:
-    def index(self,id):
-        coleta=Coleta().query.filter_by(id=id).first()
-        return render_template('coletas.html',id=id,coleta=coleta)
     
          
