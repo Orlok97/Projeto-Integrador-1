@@ -2,188 +2,207 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <style>
-    #card_row {
-      margin-top: 40px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        #card_row {
+            margin-top: 40px;
+        }
 
-    #close_btn {
-      cursor: pointer;
-    }
+        #close_btn , #delete {
+            cursor: pointer;
+        }
 
-    #cont {
-      margin-top: 40px;
+        #cont {
+            margin-top: 40px;
 
-    }
+        }
 
-    #solicitar_coleta {
-      margin-top: 40px;
-    }
+        #solicitar_coleta {
+            margin-top: 40px;
+        }
 
-    #coletas_solicitadas {
-      margin-top: 40px;
-    }
-     .tabs .indicator {
-      
-    }
-  </style>
-  <title>Home</title>
+        #coletas_solicitadas {
+            margin-top: 40px;
+        }
+    </style>
+    <title>Home</title>
 </head>
 
 <body>
 
-  <nav>
-    <div class="nav-wrapper blue darken-2">
-      <a href="{{ url_for('home') }}" class="brand-logo">Logo</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a class="tooltipped" data-position="bottom" data-tooltip="minha conta" href="#"><i class="material-icons">account_circle</i></a></li>
-        <li><a class="tooltipped" data-position="bottom" data-tooltip="sair" href="{{ url_for('logout') }}"><i
-              class="material-icons">logout</i></a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <ul class="sidenav" id="mobile-demo">
-    <li><a href="#"> <i class="material-icons left">account_circle</i> conta</a></li>
-    <li>
-      <div class="divider"></div>
-    </li>
-    <li><a href="{{ url_for('logout') }}"><i class="material-icons left">logout</i>Sair</a></li>
-  </ul>
-
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-  {% for category, message in messages %}
-  <div class="row center">
-    <div class="col s12 m6 offset-m3">
-      <div class="card {{ category }} px-4" id="alert">
-        <i class="small material-icons right" id="close_btn" onclick="closeMessage()">cancel</i>
-        <div class="card-content white-text">
-          {{ message }}
+    <nav>
+        <div class="nav-wrapper blue darken-2">
+            <a href="{{ url_for('home') }}" class="brand-logo">Logo</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="tooltipped" data-position="bottom" data-tooltip="minha conta" href="#"><i
+                            class="material-icons">account_circle</i></a></li>
+                <li><a class="tooltipped" data-position="bottom" data-tooltip="sair" href="{{ url_for('logout') }}"><i
+                            class="material-icons">logout</i></a></li>
+            </ul>
         </div>
-      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="#"> <i class="material-icons left">account_circle</i> conta</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="{{ url_for('logout') }}"><i class="material-icons left">logout</i>Sair</a></li>
+    </ul>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="row center">
+        <div class="col s12 m6 offset-m3">
+            <div class="card {{ category }} px-4" id="alert">
+                <i class="small material-icons right" id="close_btn" onclick="closeMessage()">cancel</i>
+                <div class="card-content white-text">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-  <div class="container" id="cont">
-    <div class="row">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s3"><a class="activate" href="#solicitar_coleta">Solicitar Coleta</a></li>
-          <li class="tab col s3"><a href="#coletas_solicitadas">Coletas Solicitadas</a></li>
-        </ul>
-      </div>
-      <div id="solicitar_coleta" class="col s12">
-        <form action="" method="POST" id="form">
-
-          <div class="row">
-            <div class="input-field col s12 m6">
-              <input type="text" name="cidade" id="cidade">
-              <label for="cidade">Cidade</label>
-            </div>
-            <div class="input-field col s12 m6">
-              <input type="text" name="bairro" id="bairro">
-              <label for="cidade">Bairro</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" name="rua" id="rua">
-              <label for="rua">Rua</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" name="desc" id="desc">
-              <label for="desc">descrição</label>
-            </div>
-          </div>
-
-          <div class="row center">
-            <button class="btn waves-effect" type="submit">Solicitar</button>
-          </div>
-
-        </form>
-      </div>
-      <div id="coletas_solicitadas" class="col s12">
-
-        {% for coleta in coletas %}
-
+    <div class="container" id="cont">
         <div class="row">
-          <div class="col s12 m6 offset-m3">
-            <div class="card ">
-              <div class="card-content ">
-                <span class="card-title">Solicitação {{ coleta.id }}</span>
-                <b>Cidade</b>: {{ coleta.cidade }} <br>
-                <b>Bairro</b>: {{ coleta.bairro }} <br>
-                <b>Rua</b>: {{ coleta.rua }} <br>
-              </div>
-              {% if coleta.status == 'pendente' %}
-              <div class="card-action">
-                <a href="{{ url_for('email',id=coleta.id) }}" class="btn btn-flat btn-small">confirmar
-                  <i class="material-icons right">send</i>
-                </a>
-                <button class="btn btn-flat btn-small">editar
-                    <i class="material-icons right">edit</i>
-                </button>
-              </div>
-              {% else %}
-              <div class="card-action">
-                <a href="{{ url_for('email',id=coleta.id) }}" class="btn btn-flat btn-small green-text">confirmada
-                  <i class="material-icons right green-text">checked</i>
-                  
-                </a>
-                
-              </div>
-              {% endif %}
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="activate" href="#solicitar_coleta">Solicitar Coleta</a></li>
+                    <li class="tab col s3"><a href="#coletas_solicitadas">Coletas Solicitadas</a></li>
+                    <li class="tab col s3"><a href="#coletas_confirmadas">Coletas Confirmadas</a></li>
+                </ul>
             </div>
-          </div>
+            <div id="solicitar_coleta" class="col s12">
+                <form action="" method="POST" id="form">
+
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input type="text" name="cidade" id="cidade">
+                            <label for="cidade">Cidade</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input type="text" name="bairro" id="bairro">
+                            <label for="cidade">Bairro</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="rua" id="rua">
+                            <label for="rua">Rua</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="desc" id="desc">
+                            <label for="desc">descrição</label>
+                        </div>
+                    </div>
+
+                    <div class="row center">
+                        <button class="btn waves-effect" type="submit">Solicitar</button>
+                    </div>
+
+                </form>
+            </div>
+            <div id="coletas_solicitadas" class="col s12">
+
+                {% for coleta in coletas %}
+
+                <div class="row">
+                    <div class="col s12 m6 offset-m3">
+                        {% if coleta.status=='pendente' %}
+                        <div class="card ">
+                            <div class="card-content ">
+                                <span class="card-title">Solicitação {{ coleta.id }} <i class="material-icons right" id="delete">delete</i></span>
+                                <b>Cidade</b>: {{ coleta.cidade }} <br>
+                                <b>Bairro</b>: {{ coleta.bairro }} <br>
+                                <b>Rua</b>: {{ coleta.rua }} <br>
+                            </div>
+
+                            <div class="card-action">
+                                <a href="{{ url_for('email',id=coleta.id) }}" class="btn btn-flat btn-small">confirmar
+                                    <i class="material-icons right">send</i>
+                                </a>
+                                <button class="btn btn-flat btn-small">editar
+                                    <i class="material-icons right">edit</i>
+                                </button>
+                            </div>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+
         </div>
 
-        {% endfor %}
-      </div>
+        <div id="coletas_confirmadas">
+                {% for coleta in coletas %}
+
+                <div class="row">
+                    <div class="col s12 m6 offset-m3">
+                        {% if coleta.status=='confirmado' %}
+                        <div class="card ">
+                            <div class="card-content ">
+                                <span class="card-title">Solicitação {{ coleta.id }}</span>
+                                <b>Cidade</b>: {{ coleta.cidade }} <br>
+                                <b>Bairro</b>: {{ coleta.bairro }} <br>
+                                <b>Rua</b>: {{ coleta.rua }} <br>
+                            </div>
+
+                            <div class="card-action">
+                               <a  class="btn btn-flat green-text">Solicitação Confirmdada <i class="material-icons right">checked</i></a>
+                            </div>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% endfor %}
+        </div>
 
     </div>
 
-  </div>
+    <script>
+        function closeMessage() {
+            document.querySelector('#alert').remove()
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.tabs');
+            var instance = M.Tabs.init(elems, 300);
+        });
 
-  <script>
-    function closeMessage() {
-      document.querySelector('#alert').remove()
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.tabs');
-      var instance = M.Tabs.init(elems, 300);
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.tooltipped');
-      var instances = M.Tooltip.init(elems, 0);
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-      let elems = document.querySelectorAll('.sidenav');
-      let instances = M.Sidenav.init(elems, 'left');
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-      let elems = document.querySelectorAll('.modal');
-      let instances = M.Modal.init(elems, 0.5);
-    })
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.tooltipped');
+            var instances = M.Tooltip.init(elems, 0);
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            let elems = document.querySelectorAll('.sidenav');
+            let instances = M.Sidenav.init(elems, 'left');
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            let elems = document.querySelectorAll('.modal');
+            let instances = M.Modal.init(elems, 0.5);
+        })
 
 
 
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>
