@@ -12,7 +12,8 @@
             margin-top: 40px;
         }
 
-        #close_btn , #delete {
+        #close_btn,
+        #delete {
             cursor: pointer;
         }
 
@@ -77,8 +78,8 @@
             <div class="col s12">
                 <ul class="tabs">
                     <li class="tab col s3"><a class="activate" href="#solicitar_coleta">Solicitar Coleta</a></li>
-                    <li class="tab col s3"><a href="#coletas_solicitadas">Coletas Solicitadas</a></li>
-                    <li class="tab col s3"><a href="#coletas_confirmadas">Coletas Confirmadas</a></li>
+                    <li class="tab col s3"><a href="#coletas_solicitadas">Pendentes </a></li>
+                    <li class="tab col s3"><a href="#coletas_confirmadas">Confirmadas</a></li>
                 </ul>
             </div>
             <div id="solicitar_coleta" class="col s12">
@@ -95,18 +96,15 @@
                         </div>
                     </div>
 
-
                     <div class="row center">
                         <div class="input-field col s12">
                             <select name="area">
-                              <option value="" disabled selected class="center-align">Selecione a Região</option>
-                              <option value="Area-Insular">Area Insular</option>
-                              <option value="Area-Continental">Area Continental</option>
+                                <option value="Area-Insular">Area Insular</option>
+                                <option value="Area-Continental" selected>Area Continental</option>
                             </select>
                             <label>Região</label>
-                          </div>
-                    </div>  
-                    
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="input-field col s12">
@@ -122,15 +120,15 @@
                 </form>
             </div>
             <div id="coletas_solicitadas" class="col s12">
-
                 {% for coleta in coletas %}
-
                 <div class="row">
                     <div class="col s12 m6 offset-m3">
                         {% if coleta.status=='pendente' %}
                         <div class="card ">
                             <div class="card-content ">
-                                <span class="card-title">Solicitação {{ coleta.id }} <a href="{{ url_for('delete',id=coleta.id) }}"><i class="material-icons right" id="delete">delete </i></a></span>
+                                <span class="card-title">Solicitação {{ coleta.id }} <a
+                                        href="{{ url_for('delete',id=coleta.id) }}"><i class="material-icons right"
+                                            id="delete">delete </i></a></span>
                                 <b>Região</b>: {{ coleta.area }} <br>
                                 <b>Bairro</b>: {{ coleta.bairro }} <br>
                                 <b>Rua</b>: {{ coleta.rua }} <br>
@@ -140,7 +138,8 @@
                                 <a href="{{ url_for('email',id=coleta.id) }}" class="btn btn-flat btn-small">confirmar
                                     <i class="material-icons right">send</i>
                                 </a>
-                                <button class="btn btn-flat btn-small">editar
+                                <button class="btn btn-flat btn-small modal-trigger"
+                                    data-target="modal-{{ coleta.id }}">editar
                                     <i class="material-icons right">edit</i>
                                 </button>
                             </div>
@@ -156,42 +155,99 @@
         </div>
 
         <div id="coletas_confirmadas">
-                {% for coleta in coletas %}
-
-                <div class="row">
-                    <div class="col s12 m6 offset-m3">
-                        {% if coleta.status=='confirmado' %}
-                        <div class="card ">
-                            <div class="card-content ">
-                                <span class="card-title">Solicitação {{ coleta.id }}</span>
-                                <b>Região</b>: {{ coleta.area }} <br>
-                                <b>Bairro</b>: {{ coleta.bairro }} <br>
-                                <b>Rua</b>: {{ coleta.rua }} <br>
-                            </div>
-
-                            <div class="card-action">
-                               <a  class="btn btn-flat green-text">Solicitação Confirmdada <i class="material-icons right">checked</i></a>
-                            </div>
-
+            {% for coleta in coletas %}
+            <div class="row">
+                <div class="col s12 m6 offset-m3">
+                    {% if coleta.status=='confirmado' %}
+                    <div class="card ">
+                        <div class="card-content ">
+                            <span class="card-title">Solicitação {{ coleta.id }}</span>
+                            <b>Região</b>: {{ coleta.area }} <br>
+                            <b>Bairro</b>: {{ coleta.bairro }} <br>
+                            <b>Rua</b>: {{ coleta.rua }} <br>
                         </div>
-                        {% endif %}
+
+                        <div class="card-action">
+                            <a class="btn btn-flat green-text">Solicitação Confirmdada <i
+                                    class="material-icons right">checked</i></a>
+                        </div>
+
                     </div>
+                    {% endif %}
                 </div>
+            </div>
 
-                {% endfor %}
+            {% endfor %}
         </div>
+        {% for coleta in coletas %}
+        {% if coleta.status == 'pendente' %}
+        <div class="modal" id="modal-{{ coleta.id }}">
+            <h5>Editar {{ coleta.id }} </h5>
+            <div class="container">
 
+                <form action="{{ url_for('update',id=coleta.id) }}" method="POST" id="form{{ coleta.id }}">
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input type="text" name="bairro" id="bairro" value="{{ coleta.bairro }}">
+                            <label for="cidade">Bairro</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input type="text" name="rua" id="rua" value="{{ coleta.rua }}">
+                            <label for="rua">Rua</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row center">
+                        <div class="input-field col s12">
+                            <select name="area">
+                                {% if coleta.area == 'Area-Insular' %}
+                                <option value="{{ coleta.area }}"  selected class="center-align">{{ coleta.area }}</option>
+                                <option value="Area-Continental">Area Continental</option>
+                                {% else %}
+                                <option value="{{ coleta.area }}"  selected class="center-align">{{ coleta.area }}</option>
+                                <option value="Area-Insular">Area Insular</option>
+                                {% endif %}
+                            </select>
+                            <label>Região</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="desc" id="desc" value="{{ coleta.desc }}">
+                            <label for="desc">Descrição</label>
+                        </div>
+                    </div>
+
+                    <div class="row center">
+                        <button class="btn waves-effect" type="submit">Confirmar Alterações</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         function closeMessage() {
             document.querySelector('#alert').remove()
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems, '');
-  });
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, 0.5);
+        })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, '');
+        });
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.tabs');
             var instance = M.Tabs.init(elems, 300);
@@ -213,7 +269,6 @@
 
 
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>

@@ -50,6 +50,18 @@ class Coleta(db.Model):
             print(f"erro ao criar : {e}")
             db.session.rollback() 
             return False
+
+    @staticmethod
+    def update(id,bairro,rua,area,desc):
+        coleta=Coleta.query.get(id)
+        if coleta:
+            coleta.bairro=bairro
+            coleta.rua=rua
+            coleta.area=area
+            coleta.desc=desc
+            db.session.commit()
+            print('dados alterados')
+            
     @staticmethod
     def delete(id):
         coleta=Coleta.query.get(id)

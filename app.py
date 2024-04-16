@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_mail import Mail, Message
-from flask import redirect, url_for, render_template
+from flask import redirect, url_for, render_template, request
 from controllers import *
 from models import db, Coleta
 
@@ -65,5 +65,20 @@ def delete(id):
         return redirect(url_for('home'))
     except Exception as e:
         return str(e)
+
+@app.route('/update/<int:id>',methods=['POST'])
+def update(id):
+    if request.method=='POST':
+        bairro=request.form.get('bairro')
+        rua=request.form.get('rua')
+        area=request.form.get('area')
+        desc=request.form.get('desc')
+    try:
+        Coleta.update(id,bairro,rua,area,desc)
+        flash('Dados Alterados','green lighten-1')
+        return redirect(url_for('home'))
+    except Exception as e:
+        return str(e)
+        
 if __name__ == '__main__':
     app.run(debug=True)

@@ -71,6 +71,7 @@ class HomeController:
             user_id=user.id
             coletas=Coleta().query.filter_by(user_id=user_id)
             return render_template('home.html',user=user,coletas=coletas)
+    
          
     def logout(self):
         session.pop('email',None)
