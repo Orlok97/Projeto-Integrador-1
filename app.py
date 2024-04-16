@@ -47,7 +47,7 @@ def email(id):
         msg = Message("Coleta Solicitada",
                   sender="from@gmail.com",
                   recipients=["test@example.com"])
-        msg.body = "Cidade: "+coleta.cidade+" Bairro: "+coleta.bairro+" Rua: "+coleta.rua
+        
         msg.html=render_template('email.html',coleta=coleta,usuario=usuario)
         mail.send(msg)
         coleta.status='confirmado'
@@ -57,5 +57,8 @@ def email(id):
 
     except Exception as e:
         return str(e)
+@app.route('/delete/<int:id>')
+def delete(id):
+    return HomeController().delete(id)
 if __name__ == '__main__':
     app.run(debug=True)

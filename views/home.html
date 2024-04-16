@@ -35,7 +35,7 @@
 <body>
 
     <nav>
-        <div class="nav-wrapper blue darken-2">
+        <div class="nav-wrapper">
             <a href="{{ url_for('home') }}" class="brand-logo">Logo</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
@@ -86,21 +86,27 @@
 
                     <div class="row">
                         <div class="input-field col s12 m6">
-                            <input type="text" name="cidade" id="cidade">
-                            <label for="cidade">Cidade</label>
-                        </div>
-                        <div class="input-field col s12 m6">
                             <input type="text" name="bairro" id="bairro">
                             <label for="cidade">Bairro</label>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s12 m6">
                             <input type="text" name="rua" id="rua">
                             <label for="rua">Rua</label>
                         </div>
                     </div>
+
+
+                    <div class="row center">
+                        <div class="input-field col s12">
+                            <select name="area">
+                              <option value="" disabled selected class="center-align">Selecione a Região</option>
+                              <option value="Area-Insular">Area Insular</option>
+                              <option value="Area-Continental">Area Continental</option>
+                            </select>
+                            <label>Região</label>
+                          </div>
+                    </div>  
+                    
 
                     <div class="row">
                         <div class="input-field col s12">
@@ -124,8 +130,8 @@
                         {% if coleta.status=='pendente' %}
                         <div class="card ">
                             <div class="card-content ">
-                                <span class="card-title">Solicitação {{ coleta.id }} <i class="material-icons right" id="delete">delete</i></span>
-                                <b>Cidade</b>: {{ coleta.cidade }} <br>
+                                <span class="card-title">Solicitação {{ coleta.id }} <a href="{{ url_for('delete',id=coleta.id) }}"><i class="material-icons right" id="delete">delete </i></a></span>
+                                <b>Area</b>: {{ coleta.area }} <br>
                                 <b>Bairro</b>: {{ coleta.bairro }} <br>
                                 <b>Rua</b>: {{ coleta.rua }} <br>
                             </div>
@@ -158,7 +164,7 @@
                         <div class="card ">
                             <div class="card-content ">
                                 <span class="card-title">Solicitação {{ coleta.id }}</span>
-                                <b>Cidade</b>: {{ coleta.cidade }} <br>
+                                <b>Região</b>: {{ coleta.area }} <br>
                                 <b>Bairro</b>: {{ coleta.bairro }} <br>
                                 <b>Rua</b>: {{ coleta.rua }} <br>
                             </div>
@@ -181,6 +187,11 @@
         function closeMessage() {
             document.querySelector('#alert').remove()
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, '');
+  });
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.tabs');
             var instance = M.Tabs.init(elems, 300);

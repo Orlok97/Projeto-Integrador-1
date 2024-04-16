@@ -33,26 +33,31 @@ class Usuario(db.Model):
 
 class Coleta(db.Model):
     id=db.Column(db.Integer,primary_key=True)
-    cidade=db.Column(db.String(120),unique=False,nullable=False)
     bairro=db.Column(db.String(120),nullable=False)
     rua=db.Column(db.String(120),nullable=False)
+    area=db.Column(db.String(120),nullable=False)
     desc=db.Column(db.String(120),nullable=True)
     status=db.Column(db.String(120),default='pendente')
     user_id=db.Column(db.Integer,db.ForeignKey('usuario.id'),nullable=False)
     @staticmethod
-    def create(cidade,bairro,rua,desc,user_id):
-        coleta=Coleta(cidade=cidade,bairro=bairro,rua=rua,desc=desc,user_id=user_id)
+    def create(bairro,rua,area,desc,user_id):
+       
+        coleta=Coleta(bairro=bairro,rua=rua,area=area,desc=desc,user_id=user_id)
         db.session.add(coleta)
         try:
             db.session.commit()
             return True
         except Exception as e:
             print(f"erro ao criar : {e}")
-            db.session.rollback()
+            db.session.rollback() 
             return False
     @staticmethod
-    def confirmar():
-        pass
+    def delete(id):
+        coleta=Coleta().query.filter_by(id=id).first()
+        coleta_id=coleta.id
+        db.session.delete(coleta_id)
+        db.session.commit()
+        return True
     
 class Arquivos(db.Model):
     id=db.Column(db.Integer,primary_key=True)
