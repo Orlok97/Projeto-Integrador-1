@@ -41,7 +41,6 @@ class Coleta(db.Model):
     user_id=db.Column(db.Integer,db.ForeignKey('usuario.id'),nullable=False)
     @staticmethod
     def create(bairro,rua,area,desc,user_id):
-       
         coleta=Coleta(bairro=bairro,rua=rua,area=area,desc=desc,user_id=user_id)
         db.session.add(coleta)
         try:
@@ -53,11 +52,10 @@ class Coleta(db.Model):
             return False
     @staticmethod
     def delete(id):
-        coleta=Coleta().query.filter_by(id=id).first()
-        coleta_id=coleta.id
-        db.session.delete(coleta_id)
+        coleta=Coleta.query.get(id)
+        db.session.delete(coleta)
         db.session.commit()
-        return True
+        return 'ok'
     
 class Arquivos(db.Model):
     id=db.Column(db.Integer,primary_key=True)

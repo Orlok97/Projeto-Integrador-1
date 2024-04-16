@@ -57,7 +57,6 @@ class HomeController:
                 rua=request.form.get('rua')
                 area=request.form.get('area')
                 desc=request.form.get('desc')
-               
                 if area=='' or bairro=='' or rua=='':
                     flash('os campos nao podem ficar vazio','amber accent-2')
                 else:
@@ -76,6 +75,3 @@ class HomeController:
     def logout(self):
         session.pop('email',None)
         return redirect(url_for('index'))
-        
-    
-         

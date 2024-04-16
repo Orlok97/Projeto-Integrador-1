@@ -59,6 +59,11 @@ def email(id):
         return str(e)
 @app.route('/delete/<int:id>')
 def delete(id):
-    return HomeController().delete(id)
+    try:
+        Coleta.delete(id)
+        flash('solicitação cancelada','green lighten-1')
+        return redirect(url_for('home'))
+    except Exception as e:
+        return str(e)
 if __name__ == '__main__':
     app.run(debug=True)
