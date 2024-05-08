@@ -1,6 +1,9 @@
 from flask import render_template, request, url_for
-from flask import redirect , session, flash
+from flask import redirect , session, flash, jsonify
 from models import *
+from werkzeug.utils import secure_filename
+from fileinput import filename 
+
 
 class LoginController:
     def index(self):
@@ -61,8 +64,14 @@ class HomeController:
                     flash('os campos nao podem ficar vazio','amber accent-2')
                 else:
                     try:
-                        if Coleta().create(bairro,rua,area,desc,user_id):
-                            flash('coleta solicitada com sucesso!','green lighten-1')
+                        coleta=Coleta().create(bairro,rua,area,desc,user_id)
+                        files = request.files.getlist('file')
+                        for f in files:
+                            if f.filename != '':
+                                f.save('static/upload/coleta/'+f.filename)
+                                Arquivos.create(coleta.id,f.filename)
+                            flash('coleta solicitada com sucesso! ','green lighten-1')
+                            return redirect(url_for('home'))
                         else:
                             flash('erro ao solicitar o serviço','red lighten-2')
                     except Exception as e:
@@ -70,9 +79,9 @@ class HomeController:
             user=Usuario().auth(session['email'])
             user_id=user.id
             coletas=Coleta().query.filter_by(user_id=user_id)
-            return render_template('home.html',user=user,coletas=coletas)
-    
-         
+            foto=Arquivos()
+            return render_template('home.html',user=user,coletas=coletas,foto=foto)
+
     def logout(self):
         session.pop('email',None)
         return redirect(url_for('index'))

@@ -5,49 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='lib/materialize/css/materialize.min.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        #card_row {
-            margin-top: 40px;
+        #close_btn:hover {
+            opacity: 0.5;
+        }
+
+        #closePreview {
+            display: absolute;
+            margin-left: 0px;
         }
 
         #close_btn,
-        #delete {
+        #delete,
+        #closePreview {
             cursor: pointer;
+        }
+
+        #delete {
+            color: #ef5350;
+        }
+
+        #delete:hover {
+            color: #ef9a9a;
         }
 
         #cont {
             margin-top: 40px;
-
         }
 
-        #solicitar_coleta {
-            margin-top: 40px;
-        }
-
-        #coletas_solicitadas {
-            margin-top: 40px;
+        #file {
+            display: none;
         }
     </style>
     <title>Home</title>
 </head>
 
-<body>
-
+<body style="height:100 vh;">
     <nav>
         <div class="nav-wrapper">
             <a href="{{ url_for('home') }}" class="brand-logo">Logo</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a class="tooltipped" data-position="bottom" data-tooltip="minha conta" href="#"><i
-                            class="material-icons">account_circle</i></a></li>
+                <li><a class="tooltipped" data-position="bottom" data-tooltip="minha conta"
+                        href="{{ url_for('conta') }}"><i class="material-icons">account_circle</i></a></li>
                 <li><a class="tooltipped" data-position="bottom" data-tooltip="sair" href="{{ url_for('logout') }}"><i
                             class="material-icons">logout</i></a></li>
             </ul>
         </div>
     </nav>
-
     <ul class="sidenav" id="mobile-demo">
         <li><a href="#"> <i class="material-icons left">account_circle</i> conta</a></li>
         <li>
@@ -55,7 +62,6 @@
         </li>
         <li><a href="{{ url_for('logout') }}"><i class="material-icons left">logout</i>Sair</a></li>
     </ul>
-
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -83,8 +89,7 @@
                 </ul>
             </div>
             <div id="solicitar_coleta" class="col s12">
-                <form action="" method="POST" id="form">
-
+                <form action="" method="POST" id="form" enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-field col s12 m6">
                             <input type="text" name="bairro" id="bairro">
@@ -95,7 +100,6 @@
                             <label for="rua">Rua</label>
                         </div>
                     </div>
-
                     <div class="row center">
                         <div class="input-field col s12">
                             <select name="area">
@@ -114,42 +118,56 @@
                     </div>
 
                     <div class="row center">
+                        <div class="col s12" style="display:flex; justify-content:center">
+                            <img id="preview" display="none">
+                            <i class="material-icons right" id="closePreview" onclick="closePreview()"></i>
+                        </div>
+
+                    </div>
+                    <div class="row center ">
+                        <input class="" id="file" type="file" name="file" multiple>
+
+                        <label class="btn btn-flat waves-effect" for="file">Anexar Foto<i
+                                class="material-icons right">upload_file</i></label>
+                    </div>
+                    <div class="row center">
                         <button class="btn waves-effect" type="submit">Solicitar</button>
                     </div>
-
                 </form>
             </div>
-            <div id="coletas_solicitadas" class="col s12">
-                {% for coleta in coletas %}
-                <div class="row">
-                    <div class="col s12 m6 offset-m3">
-                        {% if coleta.status=='pendente' %}
-                        <div class="card ">
-                            <div class="card-content ">
-                                <span class="card-title">Solicitação {{ coleta.id }} <a
-                                        href="{{ url_for('delete',id=coleta.id) }}"><i class="material-icons right"
-                                            id="delete">delete </i></a></span>
-                                <b>Região</b>: {{ coleta.area }} <br>
-                                <b>Bairro</b>: {{ coleta.bairro }} <br>
-                                <b>Rua</b>: {{ coleta.rua }} <br>
-                            </div>
-
-                            <div class="card-action">
-                                <a href="{{ url_for('email',id=coleta.id) }}" class="btn btn-flat btn-small">confirmar
-                                    <i class="material-icons right">send</i>
+            <div id="coletas_solicitadas" class="">
+                <table class="centered highlight">
+                    <thead>
+                        <th>Região</th>
+                        <th>Bairro</th>
+                        <th>Rua</th>
+                        <th>Descrição</th>
+                        <th>Ação</th>
+                    </thead>
+                    {% for coleta in coletas %}
+                    {% if coleta.status=='pendente' %}
+                    <tbody>
+                        <tr>
+                            <td>{{ coleta.area }}</td>
+                            <td>{{ coleta.bairro }}</td>
+                            <td>{{ coleta.rua }}</td>
+                            <td>{{ coleta.desc }}</td>
+                            <td style="display:flex; flex-wrap:nowrap;" >
+                                <a href="{{ url_for('email',id=coleta.id) }}" class="btn btn-flat green-text tooltipped" data-position="bottom" data-tooltip="confirmar a solicitação">
+                                    <i class="material-icons">send</i>
                                 </a>
-                                <button class="btn btn-flat btn-small modal-trigger"
-                                    data-target="modal-{{ coleta.id }}">editar
-                                    <i class="material-icons right">edit</i>
+                                <button class="btn btn-flat modal-trigger blue-text tooltipped" data-position="bottom" data-tooltip="editar o registro" data-target="modal-{{ coleta.id }}">
+                                    <i class="material-icons">edit</i>
                                 </button>
-                            </div>
-
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% endfor %}
+                                <button class="btn btn-flat red-text tooltipped" data-position="bottom" data-tooltip="deletar o registro" onclick="deletarSolicitacao({{ coleta.id }})">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                    {% endfor %}
+                </table>
             </div>
 
         </div>
@@ -160,8 +178,11 @@
                 <div class="col s12 m6 offset-m3">
                     {% if coleta.status=='confirmado' %}
                     <div class="card ">
+
                         <div class="card-content ">
                             <span class="card-title">Solicitação {{ coleta.id }}</span>
+                            foto {{ foto.query.filter_by(coleta_id=coleta.id).first().filename }}
+
                             <b>Região</b>: {{ coleta.area }} <br>
                             <b>Bairro</b>: {{ coleta.bairro }} <br>
                             <b>Rua</b>: {{ coleta.rua }} <br>
@@ -171,21 +192,19 @@
                             <a class="btn btn-flat green-text">Solicitação Confirmdada <i
                                     class="material-icons right">checked</i></a>
                         </div>
-
                     </div>
                     {% endif %}
                 </div>
             </div>
-
             {% endfor %}
         </div>
         {% for coleta in coletas %}
         {% if coleta.status == 'pendente' %}
-        <div class="modal" id="modal-{{ coleta.id }}">
-            <h5>Editar {{ coleta.id }} </h5>
+        <div class="modal" id="modal-{{ coleta.id }}" style="height:100%;">
+            <h5 style="text-align: center">Editar {{ coleta.id }} </h5>
             <div class="container">
-
-                <form action="{{ url_for('update',id=coleta.id) }}" method="POST" id="form{{ coleta.id }}">
+                <form action="{{ url_for('update',id=coleta.id) }}" method="POST" id="form{{ coleta.id }}"
+                    enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-field col s12 m6">
                             <input type="text" name="bairro" id="bairro" value="{{ coleta.bairro }}">
@@ -196,24 +215,22 @@
                             <label for="rua">Rua</label>
                         </div>
                     </div>
-
-
                     <div class="row center">
                         <div class="input-field col s12">
                             <select name="area">
                                 {% if coleta.area == 'Area-Insular' %}
-                                <option value="{{ coleta.area }}"  selected class="center-align">{{ coleta.area }}</option>
+                                <option value="{{ coleta.area }}" selected class="center-align">{{ coleta.area }}
+                                </option>
                                 <option value="Area-Continental">Area Continental</option>
                                 {% else %}
-                                <option value="{{ coleta.area }}"  selected class="center-align">{{ coleta.area }}</option>
+                                <option value="{{ coleta.area }}" selected class="center-align">{{ coleta.area }}
+                                </option>
                                 <option value="Area-Insular">Area Insular</option>
                                 {% endif %}
                             </select>
                             <label>Região</label>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="input-field col s12">
                             <input type="text" name="desc" id="desc" value="{{ coleta.desc }}">
@@ -221,11 +238,33 @@
                         </div>
                     </div>
 
+                    {% if foto.query.filter_by(coleta_id=coleta.id).first().filename != null %}
+                    <div style="display:flex; flex-direction:flex-column; justify-content:center;  width:100%; height:150px;">
+                        <img width="100%" height="100%"
+                            src="static/upload/coleta/{{ foto.query.filter_by(coleta_id=coleta.id).first().filename }}"
+                            alt="" id="preview2">
+                        <i class="material-icons" style="cursor:pointer;">delete</i>
+                        <input type="file" name="file2" style="display:none;" id="file2">
+                        <label for="file2"><i class="material-icons" style="cursor:pointer;">edit</i></label>
+                    </div>
+                    {% else %}
+                    <div class="row center">
+                        <div style="display:flex; flex-direction:flex-column; justify-content:center; width:100%; height:150px;">
+                            <img id="preview3" display="none" alt="" width="100%" height="100%" style="border:none;">
+                        </div>
+                        <input type="file" name="file2" style="display:none;" id="file3">
+                        <label class="btn btn-flat" for="file3">anexar foto<i class="material-icons"
+                                style="cursor:pointer;">upload_file</i></label>
+                    </div>
+                    {%endif%}
+
                     <div class="row center">
                         <button class="btn waves-effect" type="submit">Confirmar Alterações</button>
                     </div>
 
+
                 </form>
+
 
             </div>
         </div>
@@ -233,42 +272,8 @@
         {% endfor %}
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-        function closeMessage() {
-            document.querySelector('#alert').remove()
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems, 0.5);
-        })
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems, '');
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.tabs');
-            var instance = M.Tabs.init(elems, 300);
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.tooltipped');
-            var instances = M.Tooltip.init(elems, 0);
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-            let elems = document.querySelectorAll('.sidenav');
-            let instances = M.Sidenav.init(elems, 'left');
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-            let elems = document.querySelectorAll('.modal');
-            let instances = M.Modal.init(elems, 0.5);
-        })
-
-
-
-    </script>
+    <script src="{{ url_for('static',filename='lib/materialize/js/materialize.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/script.js') }}"></script>
 </body>
 
 </html>

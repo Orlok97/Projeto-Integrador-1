@@ -39,13 +39,14 @@ class Coleta(db.Model):
     desc=db.Column(db.String(120),nullable=True)
     status=db.Column(db.String(120),default='pendente')
     user_id=db.Column(db.Integer,db.ForeignKey('usuario.id'),nullable=False)
+    arquivos=db.relationship('Arquivos',backref='parent',cascade='all,delete-orphan')
     @staticmethod
     def create(bairro,rua,area,desc,user_id):
         coleta=Coleta(bairro=bairro,rua=rua,area=area,desc=desc,user_id=user_id)
         db.session.add(coleta)
         try:
             db.session.commit()
-            return True
+            return coleta
         except Exception as e:
             print(f"erro ao criar : {e}")
             db.session.rollback() 
@@ -72,6 +73,30 @@ class Coleta(db.Model):
 class Arquivos(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     coleta_id=db.Column(db.Integer,db.ForeignKey('coleta.id'),nullable=False)
+    filename=db.Column(db.String(120),nullable=False)
+
+    @staticmethod
+    def create(id,filename):
+        arquivo=Arquivos(coleta_id=id,filename=filename)
+        db.session.add(arquivo)
+        try:
+            db.session.commit()
+            return arquivo
+        except Exception as e:
+            print(f"erro ao criar : {e}")
+            db.session.rollback() 
+            return False
+            
+    @staticmethod
+    def update(id,filename):
+        arquivo=Arquivos.query.filter_by(coleta_id=id).first()
+        if arquivo:
+            arquivo.filename=filename
+            db.session.commit()
+            print('nome do arquivo alterado')
+        else:
+            print('erro ao mudar o arquivo')
+
 
 class Auth:
     def login(self,e,senha):

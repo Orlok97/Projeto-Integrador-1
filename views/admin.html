@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>teste</title>
+    <style>
+        .div {
+            border: 1px solid red;
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script>
+        const cont = document.querySelector('#content')
+        function renderCard(res) {
+            for (let i = 0; i < res.length; i++) {
+                let div = document.createElement('div')
+                let nome = document.createElement('p')
+                let email = document.createElement('p')
+                let telefone = document.createElement('p')
+                div.setAttribute('class', 'div')
+                nome.innerHTML = res[i].nome
+                email.innerHTML = res[i].email
+                telefone.innerHTML = res[i].telefone
+                div.appendChild(nome)
+                div.appendChild(email)
+                div.appendChild(telefone)
+                cont.appendChild(div)
+            }
+        }
+        function getData() {
+            fetch('http://127.0.0.1:5000/usuarios')
+                .then(res => res.json())
+                .then(res => {
+                    renderCard(res)
+                })
+                .catch(err => console.log(err))
+        }
+        getData()
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card com Tabs e Botões em Materialize CSS</title>
+  <!-- Adicione o link para o Materialize CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+<!-- <b>Região</b>: {{ coleta.area }} <br>
+                            <b>Bairro</b>: {{ coleta.bairro }} <br>
+                            <b>Rua</b>: {{ coleta.rua }} <br> -->
+        <nav>
+                <div class="nav-wrapper">
+                    <a href="{{ url_for('home') }}" class="brand-logo">Logo</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class="tooltipped" data-position="bottom" data-tooltip="minha conta" href="{{ url_for('conta') }}"><i
+                                    class="material-icons">account_circle</i></a></li>
+                        <li><a class="tooltipped" data-position="bottom" data-tooltip="sair" href="{{ url_for('logout') }}"><i
+                                    class="material-icons">logout</i></a></li>
+                    </ul>
+                </div>
+            </nav>
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="#"> <i class="material-icons left">account_circle</i> conta</a></li>
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li><a href="{{ url_for('logout') }}"><i class="material-icons left">logout</i>Sair</a></li>
+            </ul>
+
+    <div class="container">
+        
+    </div>
+
+<!-- Adicione o link para o jQuery e o Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+  
+</script>
+
+</body>
+</html>
