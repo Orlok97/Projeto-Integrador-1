@@ -120,7 +120,7 @@
                     <div class="row center">
                         <div class="col s12" style="display:flex; justify-content:center">
                             <img id="preview" display="none">
-                            <i class="material-icons right" id="closePreview" onclick="closePreview()"></i>
+                            <a class="tooltipped" data-position="bottom" data-tooltip="remover imagem" id="closePreview" onclick="closePreview()"><i id="delete_icon"></i></a>
                         </div>
 
                     </div>
@@ -152,7 +152,7 @@
                             <td>{{ coleta.bairro }}</td>
                             <td>{{ coleta.rua }}</td>
                             <td>{{ coleta.desc }}</td>
-                            <td style="display:flex; flex-wrap:nowrap;" >
+                            <td style="display:flex; flex-wrap:nowrap; text-align: center;" >
                                 <a href="{{ url_for('email',id=coleta.id) }}" class="btn btn-flat green-text tooltipped" data-position="bottom" data-tooltip="confirmar a solicitação">
                                     <i class="material-icons">send</i>
                                 </a>
@@ -242,7 +242,7 @@
                         </div>
                     </div>
 
-                    {% if foto.query.filter_by(coleta_id=coleta.id).first().filename != None %}
+                    {% if foto.query.filter_by(coleta_id=coleta.id).first().filename != Null %}
                     <div style="display:flex; flex-direction:flex-column; justify-content:center;  width:100%; height:150px;">
                         <img width="100%" height="100%"
                             src="static/upload/coleta/{{ foto.query.filter_by(coleta_id=coleta.id).first().filename }}"
@@ -255,7 +255,7 @@
                         <div style="display:flex; flex-direction:flex-column; justify-content:center; width:100%; height:150px;">
                             <img id="preview-{{ coleta.id }}" display="none" alt="" width="100%" height="100%" style="border:none;">
                         </div>
-                        <input type="file" name="file2" style="display:none;" id="file-{{ coleta.id }}" onchange="showImageedit({{ coleta.id }})">
+                        <input type="file" name="file2" style="display:none;" id="file-{{ coleta.id }}" onchange="showImageEdit({{ coleta.id }})">
                         <label class="btn btn-flat" for="file-{{ coleta.id }}">anexar foto<i class="material-icons"
                                 style="cursor:pointer;">upload_file</i></label>
                     </div>

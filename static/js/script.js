@@ -16,7 +16,9 @@ function showImage() {
         }
         reader.readAsDataURL(file.files[0]);
     }
-    document.querySelector('#closePreview').innerHTML = 'delete'
+    document.querySelector('#closePreview').setAttribute('class','btn-floating red accent-3 tooltipped');
+    document.querySelector('#delete_icon').setAttribute('class','material-icons');
+    document.querySelector('#delete_icon').innerHTML = 'delete';
 }
 
 function showImageEdit(id) {
@@ -31,15 +33,15 @@ function showImageEdit(id) {
         }
         reader.readAsDataURL(file.files[0]);
     }
-    console.log(preview.src)
 }
 
 
 function closePreview() {
-    document.querySelector('#file').value = ''
-    document.querySelector('#preview').src = ""
-    document.querySelector('#closePreview').innerHTML = ''
-    console.log('preview fechado')
+    document.querySelector('#file').value = '';
+    document.querySelector('#preview').src = '';
+    document.querySelector('#closePreview').setAttribute('class','tootipped');
+    document.querySelector('#delete_icon').innerHTML = '';
+    console.log('preview fechado');
 }
 
 function deletarSolicitacao(id){
