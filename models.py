@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime
 db = SQLAlchemy()
 
 class Usuario(db.Model):
@@ -40,9 +40,15 @@ class Coleta(db.Model):
     status=db.Column(db.String(120),default='pendente')
     user_id=db.Column(db.Integer,db.ForeignKey('usuario.id'),nullable=False)
     arquivos=db.relationship('Arquivos',backref='parent',cascade='all,delete-orphan')
+    data=db.Column(db.Date)
+    hora=db.Column(db.Time)
+    
     @staticmethod
     def create(bairro,rua,area,desc,user_id):
-        coleta=Coleta(bairro=bairro,rua=rua,area=area,desc=desc,user_id=user_id)
+        data_atual=datetime.now()
+        data_formatada=data_atual.strftime('%Y/%m/%d')
+        hora_formatada=data_atual.strftime('%H:%M:%S')
+        coleta=Coleta(bairro=bairro,rua=rua,area=area,desc=desc,user_id=user_id,data=data_formatada,hora=hora_formatada)
         db.session.add(coleta)
         try:
             db.session.commit()

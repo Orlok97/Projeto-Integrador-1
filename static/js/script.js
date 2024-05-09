@@ -19,9 +19,9 @@ function showImage() {
     document.querySelector('#closePreview').innerHTML = 'delete'
 }
 
-function showImageEdit() {
-    let file = document.querySelector('#file2')
-    let preview = document.querySelector('#preview2')
+function showImageEdit(id) {
+    let file = document.querySelector('#file-'+id)
+    let preview = document.querySelector('#preview-'+id)
 
     if (file.files && file.files[0]) {
         let reader = new FileReader();
@@ -32,24 +32,9 @@ function showImageEdit() {
         reader.readAsDataURL(file.files[0]);
     }
     console.log(preview.src)
-    document.querySelector('#closePreview').innerHTML = 'delete'
 }
 
-function showImageCreate() {
-    let file = document.querySelector('#file3')
-    let preview = document.querySelector('#preview3')
 
-    if (file.files && file.files[0]) {
-        let reader = new FileReader();
-        reader.onload = function (e) {
-            preview.style.display = 'block'
-            preview.src = e.target.result;
-        }
-        reader.readAsDataURL(file.files[0]);
-    }
-    console.log(preview.src)
-    document.querySelector('#closePreview').innerHTML = 'delete'
-}
 function closePreview() {
     document.querySelector('#file').value = ''
     document.querySelector('#preview').src = ""
@@ -63,5 +48,3 @@ function deletarSolicitacao(id){
     }
 }
 document.querySelector('#file').addEventListener('change', showImage);
- document.querySelector('#file2').addEventListener('change', showImageEdit);
- document.querySelector('#file3').addEventListener('change', showImageCreate);
