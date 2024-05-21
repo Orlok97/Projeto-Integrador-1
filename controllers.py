@@ -1,5 +1,5 @@
 from flask import render_template, request, url_for
-from flask import redirect , session, flash, jsonify
+from flask import redirect , session, flash
 from models import *
 from fileinput import filename
 from datetime import datetime 
