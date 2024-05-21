@@ -2,8 +2,8 @@ from flask import render_template, request, url_for
 from flask import redirect , session, flash, jsonify
 from models import *
 from werkzeug.utils import secure_filename
-from fileinput import filename 
-
+from fileinput import filename
+from datetime import datetime 
 
 class LoginController:
     def index(self):
@@ -85,3 +85,33 @@ class HomeController:
     def logout(self):
         session.pop('email',None)
         return redirect(url_for('index'))
+
+class AdminController:
+    def index(self):    
+        if request.method == 'POST':
+            email=request.form.get('email_admin')
+            senha=request.form.get('senha_admin')
+            if self.auth(email,senha):
+                session['admin']=email
+                return redirect(url_for('admin_home'))
+            else:
+                flash('email ou senha incorretos','amber accent-2')
+
+        return render_template('admin-login.html')
+    def home(self):
+         if not 'admin' in session:
+             return redirect(url_for('admin'))
+         else:
+            usuarios=Usuario.query.all()
+            coletas=Coleta.query.all()
+            data_atual=datetime.now()
+            foto=Arquivos()
+            usuario=Usuario
+            return render_template('admin-home.html',usuarios=usuarios,coletas=coletas,data_atual=data_atual,foto=foto,usuario=usuario)
+            
+    def auth(self,email,senha):
+        if email == 'saovicente@gmail.com' and senha == '123':
+            return True
+    def logout(self):
+        session.pop('admin',None)
+        return redirect(url_for('admin'))

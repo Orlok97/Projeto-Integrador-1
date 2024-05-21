@@ -28,14 +28,23 @@ with app.app_context():
 def index():
     return LoginController().index()
 
-@app.route('/usuario-autenticado',methods=['GET','POST'])
-def getUser():
-    return AdminController().authUser()
 
-
-@app.route('/admin',methods=['GET','POST'])
+@app.route('/admin-login',methods=['GET','POST'])
 def admin():
     return AdminController().index()
+
+@app.route('/admin/home',methods=['GET','POST'])
+def admin_home():
+    return AdminController().home()
+
+@app.route('/admin/logout',methods=['GET'])
+def admin_logout():
+    return AdminController().logout()
+
+# @app.route('/admin/auth',methods=['POST'])
+# def admin_auth():
+#     return AdminController().auth()
+
 @app.route('/usuarios',methods=['GET'])
 def users():
     return AdminController().getUsuarios()

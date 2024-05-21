@@ -38,6 +38,9 @@
         #file {
             display: none;
         }
+        .tabs .tab{
+            /* color:red; */
+        }
     </style>
     <title>Home</title>
 </head>
@@ -45,7 +48,7 @@
 <body style="height:100 vh;">
     <nav>
         <div class="nav-wrapper">
-            <a href="{{ url_for('home') }}" class="brand-logo">Logo</a>
+            <a href="{{ url_for('home') }}" class="brand-logo">São Vicente</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a class="tooltipped" data-position="bottom" data-tooltip="minha conta"
@@ -92,18 +95,18 @@
                 <form action="" method="POST" id="form" enctype="multipart/form-data">
                     <div class="row">
                         <div class="input-field col s12 m6">
-                            <input type="text" name="bairro" id="bairro">
+                            <input type="text" name="bairro" id="bairro" autocomplete="off">
                             <label for="cidade">Bairro</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input type="text" name="rua" id="rua">
-                            <label for="rua">Rua</label>
+                            <input type="text" name="rua" id="rua" autocomplete="off">
+                            <label for="rua">Rua, Endereço</label>
                         </div>
                     </div>
                     <div class="row center">
                         <div class="input-field col s12">
-                            <select name="area">
-                                <option value="Area-Insular">Area Insular</option>
+                            <select name="area" class="text-center blue-text" style="">
+                                <option value="Area-Insular" class="blue-text">Area Insular</option>
                                 <option value="Area-Continental" selected>Area Continental</option>
                             </select>
                             <label>Região</label>
@@ -112,7 +115,7 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" name="desc" id="desc">
+                            <input type="text" name="desc" id="desc" autocomplete="off">
                             <label for="desc">Descrição</label>
                         </div>
                     </div>
@@ -125,7 +128,7 @@
 
                     </div>
                     <div class="row center ">
-                        <input class="" id="file" type="file" name="file" multiple>
+                        <input class="" id="file" type="file" name="file" multiple onchange="showImage()">
 
                         <label class="btn btn-flat waves-effect" for="file">Anexar Foto<i
                                 class="material-icons right">upload_file</i></label>
@@ -182,14 +185,18 @@
 
                         <div class="card-content ">
                             <span class="card-title">Solicitação {{ coleta.id }}</span>
-                            {% if foto.query.filter_by(coleta_id=coleta.id).first().filename != None%}
+                            {% if foto.query.filter_by(coleta_id=coleta.id).first().filename != Null%}
                             <div style="display: flex; justify-content: center;">
-                                <img src="static/upload/coleta/{{ foto.query.filter_by(coleta_id=coleta.id).first().filename }}" alt="">
+                                <img src="static/upload/coleta/{{ foto.query.filter_by(coleta_id=coleta.id).first().filename }}" width="310px" height="150px" alt="">
                             </div>
                             {% endif %}
-                            <b>Região</b>: {{ coleta.area }} <br>
-                            <b>Bairro</b>: {{ coleta.bairro }} <br>
-                            <b>Rua</b>: {{ coleta.rua }} <br>
+                            <div class="">
+                                <h5 class="center">Dados da solicitação</h5>
+                                <p><b>Região</b>: {{ coleta.area }}</p>
+                               <p><b>Bairro</b>: {{ coleta.bairro }}</p>
+                               <p><b>Rua</b>: {{ coleta.rua }}</p>
+                               <p><b>Descrição</b>: {{ coleta.desc }}</p> 
+                            </div>
                         </div>
 
                         <div class="card-action">
@@ -205,7 +212,7 @@
         {% for coleta in coletas %}
         {% if coleta.status == 'pendente' %}
         <div class="modal" id="modal-{{ coleta.id }}" style="height:100%;">
-            <h5 style="text-align: center">Editar {{ coleta.id }} </h5>
+            <h5 style="text-align: center">Editar Registro </h5>
             <div class="container">
                 <form action="{{ url_for('update',id=coleta.id) }}" method="POST" id="form{{ coleta.id }}"
                     enctype="multipart/form-data">
