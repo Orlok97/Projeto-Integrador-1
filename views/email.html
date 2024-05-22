@@ -14,7 +14,7 @@
 <body>
     <h3>Coleta Solicitada</h3>
 
-    <h4>Contato do solicitante</h4>
+    <h4>Dados do solicitante</h4>
     <ul>
         <li> <b>Nome:</b> {{ usuario.nome }} </li>
         <li> <b>Email:</b> {{ usuario.email }} </li>
@@ -27,9 +27,7 @@
         <li> <b>Bairro:</b> {{ coleta.bairro }} </li>
         <li> <b>Rua:</b> {{ coleta.rua }} </li>
         <li> <b>Descrição:</b> {{ coleta.desc }} </li>
+        <li><b>Hora:</b>{{ coleta.hora }}</li>
     </ul>
-    {% if foto_nome.filename != Null%}
-        <img src="static/upload/coleta/{{foto_nome.filename}}" width="310px" height="150px" alt="">
-    {% endif %}
 </body>
 </html>
