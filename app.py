@@ -11,12 +11,12 @@ app.secret_key='123456789'
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost:3306/PI'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
-app.config['MAIL_SERVER']='sandbox.smtp.mailtrap.io'
-app.config['MAIL_PORT'] = 2525
-app.config['MAIL_USERNAME'] = 'ec456cb0a7ba69'
-app.config['MAIL_PASSWORD'] = '8c680bc93c2edb'
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'prefeiturasv2024@gmail.com'
+app.config['MAIL_PASSWORD'] = 'bpkd xxmm nqqw vbgq '
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 
 db.init_app(app)
 mail = Mail(app)
