@@ -49,6 +49,7 @@ def users():
 @app.route('/coletas',methods=['GET','POST'])
 def coleta():
     return AdminController().getSolicitacoes()
+    
 @app.route('/cadastro',methods=['GET','POST'])
 def cadastro():
     return CadastroController().index()
