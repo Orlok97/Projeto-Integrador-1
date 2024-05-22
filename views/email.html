@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
+    *{
+        text-align: center;
+
+        }
     h3{
         color:red;
     }
@@ -28,8 +32,8 @@
         <li> <b>Rua:</b> {{ coleta.rua }} </li>
         <li> <b>Descrição:</b> {{ coleta.desc }} </li>
     </ul>
-    {% if foto.query.filter_by(coleta_id=coleta.id).first().filename != Null%}
-        <img src="static/upload/coleta/{{ foto.query.filter_by(coleta_id=coleta.id).first().filename }}" width="310px" height="150px" alt="">
+    {% if foto_nome.filename != Null%}
+        <img src="static/upload/coleta/{{foto_nome.filename}}" width="310px" height="150px" alt="">
     {% endif %}
 </body>
 </html>
