@@ -41,9 +41,6 @@ def admin_home():
 def admin_logout():
     return AdminController().logout()
 
-# @app.route('/admin/auth',methods=['POST'])
-# def admin_auth():
-#     return AdminController().auth()
 
 @app.route('/usuarios',methods=['GET'])
 def users():
@@ -72,11 +69,12 @@ def email(id):
     try:
         usuario=Usuario().auth(session['email'])
         coleta=Coleta().query.filter_by(id=id).first()
+        foto=Arquivos()
         msg = Message("Coleta Solicitada",
-                  sender="from@gmail.com",
-                  recipients=["test@example.com"])
+                  sender='noreply@gmail.com',
+                  recipients=["prefeiturasv2024@gmail.com"])
         
-        msg.html=render_template('email.html',coleta=coleta,usuario=usuario)
+        msg.html=render_template('email.html',coleta=coleta,usuario=usuario,foto=foto)
         mail.send(msg)
         coleta.status='confirmado'
         db.session.commit()
