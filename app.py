@@ -40,15 +40,6 @@ def admin_home():
 @app.route('/admin/logout',methods=['GET'])
 def admin_logout():
     return AdminController().logout()
-
-
-@app.route('/usuarios',methods=['GET'])
-def users():
-    return AdminController().getUsuarios()
-
-@app.route('/coletas',methods=['GET','POST'])
-def coleta():
-    return AdminController().getSolicitacoes()
     
 @app.route('/cadastro',methods=['GET','POST'])
 def cadastro():
