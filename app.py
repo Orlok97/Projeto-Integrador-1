@@ -64,7 +64,7 @@ def email(id):
         foto_nome=foto.query.filter_by(coleta_id=id).first()
         msg = Message("Coleta Solicitada",
                   sender='noreply@gmail.com',
-                  recipients=["prefeiturasv2024@gmail.com"])
+                  recipients=[Config.EMAIL_USER])
         
         msg.html=render_template('email.html',coleta=coleta,usuario=usuario,foto=foto,foto_nome=foto_nome)
         mail.send(msg)
