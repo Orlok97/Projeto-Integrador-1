@@ -3,6 +3,7 @@ from flask import redirect , session, flash
 from models import *
 from fileinput import filename
 from datetime import datetime 
+from config import Config
 
 class LoginController:
     def index(self):
@@ -109,7 +110,7 @@ class AdminController:
             return render_template('admin-home.html',usuarios=usuarios,coletas=coletas,data_atual=data_atual,foto=foto,usuario=usuario)
             
     def auth(self,email,senha):
-        if email == 'saovicente@gmail.com' and senha == '123':
+        if email == Config.ADMIN_EMAIL and senha == Config.ADMIN_PASSWORD:
             return True
     def logout(self):
         session.pop('admin',None)

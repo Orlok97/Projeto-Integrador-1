@@ -3,31 +3,30 @@ from flask_mail import Mail, Message
 from flask import redirect, url_for, render_template, request ,jsonify
 from controllers import *
 from models import db, Coleta
+from config import Config
 
 UPLOAD_FOLDER = '/upload/coleta'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__,template_folder='views',static_folder='static')
-app.secret_key='123456789'
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@localhost:3306/PI'
+app.secret_key=Config.SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI']=Config.DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'prefeiturasv2024@gmail.com'
-app.config['MAIL_PASSWORD'] = 'bpkd xxmm nqqw vbgq '
+app.config['MAIL_USERNAME'] = Config.EMAIL_USER
+app.config['MAIL_PASSWORD'] = Config.EMAIL_PASSWORD
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 db.init_app(app)
 mail = Mail(app)
-
 with app.app_context():
     db.create_all()
  
 @app.route('/',methods=['GET','POST'])
 def index():
     return LoginController().index()
-
 
 @app.route('/admin-login',methods=['GET','POST'])
 def admin():
