@@ -8,7 +8,7 @@ Este projeto integrador foi desenvovido como parte do curso de Engenharia de Com
 Desenvolvimento de um software com framework web que utilize noções de banco de dados, praticando controler de versão.
 
 ####  Tema escolhido pelo grupo:
-Desenvolver uma aplicação web que automatize a solicitação de retirada de resíduos sólidos urbanos e resíduos de contrução.
+Desenvolver uma aplicação web que automatize a solicitação de retirada de resíduos sólidos urbanos e resíduos de construção.
 
 ## Tabela de Conteúdos
 1. [Instalação](#instalação)
