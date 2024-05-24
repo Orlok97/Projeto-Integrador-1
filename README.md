@@ -74,11 +74,11 @@ flask run
 
 Instruções de como usar o sistema:
 
-1. Na pagina inicia clique no link "cadastre-se" e preencha os campos
+1. Na pagina inicial da aplicação clique no link "cadastre-se" e preencha os campos.
    
 ![cadastro](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/93fbb0af-9478-407a-b41f-9365d3003844)
 
-Se os campos forem preenchidos corretamente, o sistema ira mostrar uma mensagem que o usuario foi cadastrado com sucesso, como mostrado na imagem abaixo:
+Se os campos forem preenchidos corretamente, o sistema vai mostrar uma mensagem que o usuario foi cadastrado com sucesso, como mostrado na imagem abaixo:
 ![cadastro_sucesso](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/33a06ea3-f05f-48d9-bb68-e50620b22499)
 
 2. Após o cadastro clique no link "login" e digite suas credencias cadastradas.
@@ -106,5 +106,5 @@ ao clicar na ação "enviar" o usuario confirmará a solicitação da coleta e p
 Após a coleta ser confirmarda um email será enviado para prefeitura contendo os dados de contato do solicitante, e os dados da coleta solicitada.
 ![email](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/8a67c6c9-7003-42b3-a4a5-e3c40ca21f06)
 
-Obs: a prefeitura também pode ter acesso aos dados de solicitação acessando a rota "/admin-login" e preenchendo as credenciais que foram definidas no arquivo de configuração .env.
+Obs: a prefeitura também pode ter acesso aos dados de solicitação acessando a rota "/admin-login", no campo de email e senha, o administrador vai precisar digitar as credenciais que foram definidas no arquivo de configuração .env.
 Ao ser autenticado o administrador será redirecionado para a rota "/admin-home" onde terá uma tabela listando todas as informações das solicitações e o contato dos usuarios que solcitaram o serviço.
