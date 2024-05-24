@@ -39,9 +39,11 @@ cd Projeto-Integrador-1
 ```sh
 #criando a venv
 python -m venv nome_da_venv
-#ativando a venv
+
+#ativando a venv no Linux/macOS
 source nome_da_venv/bin/activate
-#ativando a venv no windows
+
+#ativando a venv no Windows
 nome_da_venv\Scripts\activate
 ```
 
@@ -72,7 +74,37 @@ flask run
 
 Instruções de como usar o sistema:
 
-1. na pagina inicia clique no link "cadastre-se" e preencha os campos
+1. Na pagina inicia clique no link "cadastre-se" e preencha os campos
+   
+![cadastro](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/93fbb0af-9478-407a-b41f-9365d3003844)
 
+Se os campos forem preenchidos corretamente, o sistema ira mostrar uma mensagem que o usuario foi cadastrado com sucesso, como mostrado na imagem abaixo:
+![cadastro_sucesso](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/33a06ea3-f05f-48d9-bb68-e50620b22499)
 
+2. Após o cadastro clique no link "login" e digite suas credencias cadastradas.
+
+![login](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/8af58f0a-b401-4304-ae23-94d745683f5a)
+
+ Se as credenciais forem digitadas corretamente, o usuario será autenticado e o sistema criará uma sessão de acesso e redirecionará para pagina home onde contém as seguintes abas: Solicitar Coleta, Pendentes e Confirmadas.
+
+ 3. na aba "solicitar coleta", o usuario deve preencher o formulario com os seguintes campos: bairro, rua, região, descrição (opcional) e anexar uma foto (opcional).
  
+![solicitando_coleta](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/33d0a5d9-7ea0-4592-8f21-39a8c647ca9a)
+
+4. Apoś clicar em "solicitar" o usuario pode checar a solicitação na aba "pendentes", onde mostrará uma tabela listando os dados da solicitação.
+
+![pendentes](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/6e1654c7-8308-4d95-b911-0f0278e8b43d)
+
+como mostrado na figura acima, a tabela terá uma coluna chamada "ação" onde o usuario podera editar os dados, cancelar a solicitação e confirmar a solicitação.
+
+ao clicar na ação "editar", o usuario pode editar os dados dos campos preenchido posteriormente no formulario da aba "Solicitar Coleta" 
+![editar_solicitacao](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/a37c864d-8e5d-46d0-9875-677e4772d22a)
+
+ao clicar na ação "enviar" o usuario confirmará a solicitação da coleta e poderá ver os dados da coleta na aba "Confirmadas".
+![solicitacao_confirmada_sucesso](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/13a47980-e538-46e5-ac42-6c3b1f84fc30)
+
+Após a coleta ser confirmarda um email será enviado para prefeitura contendo os dados de contato do solicitante, e os dados da coleta solicitada.
+![email](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/8a67c6c9-7003-42b3-a4a5-e3c40ca21f06)
+Obs: a prefeitura também pode ter acesso aos dados de solicitação, acessando a rota "/admin-login" e preenchendo as credenciais que foram configuradas no arquivo .env, ao ser autenticado o admin será redirecionado para a rota "/admin-home" onde terá uma tabela listando todas as informações da coletas e contatos do usuario que solcitaram o serviço.
+
+e por fim ao clicar na ação "deletar", os dados que foram preenchidos e enviados ao banco de dados serão apagados. 
