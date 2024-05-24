@@ -7,7 +7,7 @@ Este projeto integrador foi desenvovido como parte do curso de Engenharia de Com
 #### Tema norteador da UNIVESP:
 Desenvolvimento de um software com framework web que utilize noções de banco de dados, praticando controler de versão.
 
-####  Tema do escolhido pelo grupo:
+####  Tema escolhido pelo grupo:
 Desenvolver uma aplicação web que automatize a solicitção de retirada de resíduos sólidos urbanos e resíduos de contrução.
 
 ## Tabela de Conteúdos
