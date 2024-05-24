@@ -105,6 +105,6 @@ ao clicar na ação "enviar" o usuario confirmará a solicitação da coleta e p
 
 Após a coleta ser confirmarda um email será enviado para prefeitura contendo os dados de contato do solicitante, e os dados da coleta solicitada.
 ![email](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/8a67c6c9-7003-42b3-a4a5-e3c40ca21f06)
-Obs: a prefeitura também pode ter acesso aos dados de solicitação, acessando a rota "/admin-login" e preenchendo as credenciais que foram configuradas no arquivo .env, ao ser autenticado o admin será redirecionado para a rota "/admin-home" onde terá uma tabela listando todas as informações da coletas e contatos do usuario que solcitaram o serviço.
 
-e por fim ao clicar na ação "deletar", os dados que foram preenchidos e enviados ao banco de dados serão apagados. 
+Obs: a prefeitura também pode ter acesso aos dados de solicitação acessando a rota "/admin-login" e preenchendo as credenciais que foram definidas no arquivo de configuração .env.
+Ao ser autenticado o administrador será redirecionado para a rota "/admin-home" onde terá uma tabela listando todas as informações das solicitações e o contato dos usuarios que solcitaram o serviço.
