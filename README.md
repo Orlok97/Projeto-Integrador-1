@@ -29,7 +29,7 @@ python --version
 ```sh
 git clone https://github.com/Orlok97/Projeto-Integrador-1.git
 ```
-#### entre na diretorio
+#### Entre no diretório
 
 ```sh
 cd Projeto-Integrador-1
