@@ -87,7 +87,7 @@ Se os campos forem preenchidos corretamente, o sistema ira mostrar uma mensagem 
 
  Se as credenciais forem digitadas corretamente, o usuario será autenticado e o sistema criará uma sessão de acesso e redirecionará para pagina home onde contém as seguintes abas: Solicitar Coleta, Pendentes e Confirmadas.
 
- 3. na aba "solicitar coleta", o usuario deve preencher o formulario com os seguintes campos: bairro, rua, região, descrição (opcional) e anexar uma foto (opcional).
+ 3. na aba "solicitar coleta", o usuario deve preencher o formulario com os seguintes campos: bairro, rua, região, descrição (opcional) e anexar foto (opcional).
  
 ![solicitando_coleta](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/33d0a5d9-7ea0-4592-8f21-39a8c647ca9a)
 
@@ -95,7 +95,7 @@ Se os campos forem preenchidos corretamente, o sistema ira mostrar uma mensagem 
 
 ![pendentes](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/6e1654c7-8308-4d95-b911-0f0278e8b43d)
 
-como mostrado na figura acima, a tabela terá uma coluna chamada "ação" onde o usuario podera editar os dados, cancelar a solicitação e confirmar a solicitação.
+como mostrado na imagem acima, a tabela terá uma coluna chamada "ação" onde o usuario podera editar, deletar e confirmar os dados.
 
 ao clicar na ação "editar", o usuario pode editar os dados dos campos preenchido posteriormente no formulario da aba "Solicitar Coleta" 
 ![editar_solicitacao](https://github.com/Orlok97/Projeto-Integrador-1/assets/93604560/a37c864d-8e5d-46d0-9875-677e4772d22a)
