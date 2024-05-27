@@ -5,7 +5,7 @@
 Este projeto integrador foi desenvovido como parte do curso de Engenharia de Computação, Ciência de Dados e Tecnologia da Informação pela faculdade UNIVESP.
 
 #### Tema norteador da UNIVESP:
-Desenvolvimento de um software com framework web que utilize noções de banco de dados, praticando controler de versão.
+Desenvolvimento de um software com framework web que utilize noções de banco de dados, praticando controle de versão.
 
 ####  Tema escolhido pelo grupo:
 Desenvolver uma aplicação web que automatize a solicitação de retirada de resíduos sólidos urbanos e resíduos de construção.
@@ -20,7 +20,7 @@ Siga os seguintes passos para configurar e executar o projeto em seu ambiente lo
 
 ### Pré-requisitos
 
-Certifique-se de ter o python 3.6+ instalado, vocẽ pode verificar a versão do Python com o seguinte comando:
+Certifique-se de ter o python 3.6+ instalado, você pode verificar a versão do Python com o seguinte comando:
 ```sh
 python --version
 ```
